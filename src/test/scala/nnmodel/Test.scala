@@ -18,11 +18,11 @@ object SlidingWindowTest extends Properties("SlidingWindow") {
 object MatrixTest extends Properties("Matrix") {
   val one2Ten = Gen.choose(1, 10)
 
-  property("transport") = forAll(one2Ten, one2Ten) { (i, j) =>
+  property("transpose") = forAll(one2Ten, one2Ten) { (i, j) =>
     Matrix(0 until i * j, i).data == Matrix(0 until j * i, j).t.data
   }
 
-  property("transport.transport") = forAll(one2Ten, one2Ten) { (i, j) =>
+  property("transpose.transpose") = forAll(one2Ten, one2Ten) { (i, j) =>
     val m0 = Matrix(0 until i * j, i)
     val m1 = m0.t
     val m2 = m1.t
@@ -34,7 +34,7 @@ object MatrixTest extends Properties("Matrix") {
     m.length == j
   }
 
-  property("transport.map") = forAll(one2Ten, one2Ten) { (i, j) =>
+  property("transpose.map") = forAll(one2Ten, one2Ten) { (i, j) =>
     val m = Matrix(0 until i * j, i).t.map(identity)
     m.length == i
   }
